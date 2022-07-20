@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>全件表示</title>
+<!-- BootstrapのCSS読み込み -->
+<link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<body>
+	<!-- jQuery読み込み -->
+	<script src="js/jquery-3.6.0.min"></script>
+	<!-- Bootstrapのjs読み込み -->
+	<script src="js/bootstrap.bundle.js"></script>
+	<div class = "container">
+		<div class = "card">
+			<h5 class="card-header">商品リスト</h5>
+		</div>
+		<!-- Infomation型のdbInfomationコレクション(オブジェクトの集合体)のこと -->
+		<!-- dbInfomationコレクションが存在しているなら "th:if = "${dbInfomation}"のタグ内を実行する"-->
+		<div th:if = "${dbInfomation}">
+			<table class = "table table-striped" >
+				<thead>
+					<tr>
+						<!-- <th>はテーブル(表)の項目名(見出し)を表示する -->
+						<th scope = "col">ID</th>
+						<th scope = "col">名称</th>
+						<th scope = "col">値段</th>
+						<th scope = "col">メーカー名</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- th:each に指定したコレクションの個数分出力される　 -->
+					<!-- th:each = "コレクションの同じ名前の変数名(繰り返し回数を入れる(コレクション内の要素数)) : コレクション名" -->
+					<!-- th:object コレクション名が変更されてもth:objectの値コレクション名だけ変更すれば、中身の値が取得できる -->
+					<tr th:each = "dbInfomation : ${dbInfomation}" th:object = "${dbInfomation}">
+						<!-- <td>はテーブル(表)の項目名(見出し)の値を表示する -->
+						<!-- th:text = "*{Infomation.javaで記述してる変数名(DBからとってきた値の変数名)}" -->
+						<td scope = "row" th:text = "*{id}"></td>
+						<td scope = "row" th:text = "*{name}"></td>
+						<td scope = "row" th:text = "*{price}"></td>
+						<td scope = "row" th:text = "*{vendor}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
